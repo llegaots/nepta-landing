@@ -22,22 +22,31 @@ export default function SignupPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    console.log('handleSubmit called')
+    
     setIsSubmitting(true)
     setError(null)
 
     console.log('Form submitted with data:', formData)
+    console.log('About to make fetch request...')
 
     try {
-      console.log('Sending POST request to /api/waitlist')
+      console.log('Inside try block - Sending POST request to /api/waitlist')
+      
+      const requestBody = JSON.stringify(formData)
+      console.log('Request body:', requestBody)
+      
       const response = await fetch('/api/waitlist', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: requestBody,
       })
 
-      console.log('Response status:', response.status)
+      console.log('Fetch completed. Response status:', response.status)
+      console.log('Response ok?', response.ok)
+      
       const data = await response.json()
       console.log('Response data:', data)
 
@@ -54,8 +63,11 @@ export default function SignupPage() {
       setSubmitted(true)
     } catch (err) {
       console.error('Form submission catch error:', err)
+      console.error('Error type:', typeof err)
+      console.error('Error details:', err)
       setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {
+      console.log('Finally block - setting isSubmitting to false')
       setIsSubmitting(false)
     }
   }
