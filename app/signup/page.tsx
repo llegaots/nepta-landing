@@ -25,7 +25,10 @@ export default function SignupPage() {
     setIsSubmitting(true)
     setError(null)
 
+    console.log('Form submitted with data:', formData)
+
     try {
+      console.log('Sending POST request to /api/waitlist')
       const response = await fetch('/api/waitlist', {
         method: 'POST',
         headers: {
@@ -34,18 +37,23 @@ export default function SignupPage() {
         body: JSON.stringify(formData),
       })
 
+      console.log('Response status:', response.status)
       const data = await response.json()
+      console.log('Response data:', data)
 
       if (!response.ok) {
         // Show detailed error message if available
         const errorMessage = data.details 
           ? `${data.error}: ${data.details}`
           : data.error || 'Failed to submit form'
+        console.error('Form submission error:', errorMessage)
         throw new Error(errorMessage)
       }
 
+      console.log('Form submitted successfully!')
       setSubmitted(true)
     } catch (err) {
+      console.error('Form submission catch error:', err)
       setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {
       setIsSubmitting(false)
