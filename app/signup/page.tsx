@@ -17,12 +17,35 @@ export default function SignupPage() {
     phone: '',
   })
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission here
-    console.log('Form submitted:', formData)
-    setSubmitted(true)
+    setIsSubmitting(true)
+    setError(null)
+
+    try {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit form')
+      }
+
+      setSubmitted(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,6 +86,11 @@ export default function SignupPage() {
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-4">
+                    {error && (
+                      <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
+                        {error}
+                      </div>
+                    )}
                     <div className="space-y-2">
                       <Label htmlFor="name">Full Name</Label>
                       <Input
@@ -73,6 +101,7 @@ export default function SignupPage() {
                         value={formData.name}
                         onChange={handleChange}
                         required
+                        disabled={isSubmitting}
                       />
                     </div>
 
@@ -86,6 +115,7 @@ export default function SignupPage() {
                         value={formData.email}
                         onChange={handleChange}
                         required
+                        disabled={isSubmitting}
                       />
                     </div>
 
@@ -98,6 +128,7 @@ export default function SignupPage() {
                         placeholder="Your Company"
                         value={formData.company}
                         onChange={handleChange}
+                        disabled={isSubmitting}
                       />
                     </div>
 
@@ -110,12 +141,20 @@ export default function SignupPage() {
                         placeholder="+1 (555) 000-0000"
                         value={formData.phone}
                         onChange={handleChange}
+                        disabled={isSubmitting}
                       />
                     </div>
 
-                    <Button type="submit" className="w-full group" size="lg">
-                      Join the waitlist
-                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    <Button 
+                      type="submit" 
+                      className="w-full group" 
+                      size="lg"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? 'Submitting...' : 'Join the waitlist'}
+                      {!isSubmitting && (
+                        <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      )}
                     </Button>
                   </form>
 
