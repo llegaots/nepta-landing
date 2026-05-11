@@ -1,12 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Fraunces } from 'next/font/google'
-
-const fraunces = Fraunces({
-  subsets: ['latin'],
-  weight: ['400', '600', '700'],
-})
+import { fraunces } from '@/lib/fonts'
 
 export function HeroSection() {
   return (
@@ -47,8 +42,9 @@ export function HeroSection() {
               transition={{ duration: 0.5, delay: 0.15 }}
               className="mt-6 max-w-[560px] text-[17px] leading-[1.7] text-muted-foreground"
             >
-              NEPTA designs and deploys vertical AI agents for real estate operators.
-              One agent at a time, until the operational layer runs itself.
+              NEPTA builds capital raising agents, leasing operation agents, property management
+              agents, and a reporting agent for real estate operators. One agent at a time, until the
+              operational layer runs itself.
             </motion.p>
 
             <motion.div

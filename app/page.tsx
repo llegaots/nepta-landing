@@ -1,4 +1,5 @@
 import { HeroSection } from '@/components/landing/HeroSection'
+import { WhatWeBuildSection } from '@/components/landing/WhatWeBuildSection'
 import { NeptaNav } from '@/components/layout/NeptaNav'
 import { NeptaFooter } from '@/components/layout/NeptaFooter'
 
@@ -8,6 +9,7 @@ export default function LandingPage() {
       <NeptaNav variant="landing" />
       <main>
         <HeroSection />
+        <WhatWeBuildSection />
 
         {/* Section E placeholder: used by nav (#contact) while the real Contact section is rebuilt */}
         <section id="contact" className="py-20 lg:py-32">
