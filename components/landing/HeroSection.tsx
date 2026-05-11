@@ -1,76 +1,96 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Link from 'next/link'
-import { ArrowRight, TrendingUp, Users, Clock } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Fraunces } from 'next/font/google'
+
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'],
+})
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-background to-muted/30 py-20 lg:py-32">
+    <section className="relative overflow-hidden bg-background py-20 lg:py-32">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-28 top-10 h-96 w-96 rounded-full bg-primary/10 blur-3xl"
+      />
       <div className="container mx-auto px-4">
-        <div className="mx-auto max-w-4xl text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-5xl font-bold tracking-tight lg:text-6xl"
-          >
-            Vertical AI-Agents for{' '}
-            <span className="text-primary">Real Estate Firms</span>
-          </motion.h1>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mx-auto mt-6 max-w-2xl text-xl text-muted-foreground"
-          >
-            Capital raising isn't a list problem, it's a timing and context problem. 
-            Know when investors are ready, reach out the right way, and close deals faster.
-          </motion.p>
-
+        <div className="max-w-[880px]">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
+            transition={{ duration: 0.55 }}
+            className="flex flex-col"
           >
-            <Link href="/signup">
-              <Button size="lg" className="group text-lg">
-                Join the waitlist
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.03 }}
+              className="text-xs font-medium uppercase tracking-[0.14em] text-primary"
+            >
+              vertical agents for real estate firms
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-3"
-          >
-            <div className="flex flex-col items-center gap-2">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                <TrendingUp className="h-6 w-6 text-primary" />
+            <motion.h1
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.09 }}
+              className={`${fraunces.className} mt-5 text-[clamp(44px,5vw,84px)] font-semibold tracking-[-0.02em] leading-[1.05]`}
+            >
+              NEPTA builds agents that run real estate operations.
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="mt-6 max-w-[560px] text-[17px] leading-[1.7] text-muted-foreground"
+            >
+              NEPTA designs and deploys vertical AI agents for real estate operators.
+              One agent at a time, until the operational layer runs itself.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.22 }}
+              className="mt-10 flex items-stretch gap-8"
+            >
+              <div className="flex-1">
+                <div className="flex items-center gap-2">
+                  <span className={`${fraunces.className} text-[22px] font-semibold text-foreground`}>
+                    $1.45M+
+                  </span>
+                </div>
+                <div className="mt-1 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                  capital raised
+                </div>
               </div>
-              <h3 className="font-semibold">Raise Faster</h3>
-              <p className="text-sm text-muted-foreground">Close deals in weeks, not months</p>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                <Users className="h-6 w-6 text-primary" />
+
+              <div className="hidden w-px bg-border" />
+
+              <div className="flex-1">
+                <span className={`${fraunces.className} text-[22px] font-semibold text-foreground`}>
+                  20+
+                </span>
+                <div className="mt-1 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                  clients served
+                </div>
               </div>
-              <h3 className="font-semibold">Find New Investors</h3>
-              <p className="text-sm text-muted-foreground">Discover warm, credible opportunities</p>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                <Clock className="h-6 w-6 text-primary" />
+
+              <div className="hidden w-px bg-border" />
+
+              {/* Third stat kept aligned with the original "proof row" intent. */}
+              <div className="flex-1">
+                <span className={`${fraunces.className} text-[22px] font-semibold text-foreground`}>
+                  $100K+
+                </span>
+                <div className="mt-1 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                  bootstrapped revenue
+                </div>
               </div>
-              <h3 className="font-semibold">Perfect Timing</h3>
-              <p className="text-sm text-muted-foreground">Reach out when they're ready</p>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>
