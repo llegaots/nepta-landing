@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { fraunces } from '@/lib/fonts'
 
 type NeptaNavVariant = 'landing' | 'signup'
 
@@ -23,7 +24,7 @@ export function NeptaNav({ variant }: { variant: NeptaNavVariant }) {
       ].join(' ')}
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <Link href="/" className="text-xl font-bold tracking-tight">
+        <Link href="/" className={`${fraunces.className} text-xl font-bold tracking-tight text-foreground`}>
           NEPTA
         </Link>
 

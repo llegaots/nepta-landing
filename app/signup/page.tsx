@@ -3,13 +3,16 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowLeft, ArrowRight, Check, CheckCircle } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { NeptaNav } from '@/components/layout/NeptaNav'
 import { NeptaFooter } from '@/components/layout/NeptaFooter'
+import { fraunces } from '@/lib/fonts'
+
+const inputClass =
+  'h-14 rounded-md border-border text-[17px] px-4 shadow-none focus-visible:ring-2 focus-visible:ring-ring'
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({
@@ -25,7 +28,7 @@ export default function SignupPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     console.log('handleSubmit called')
-    
+
     setIsSubmitting(true)
     setError(null)
 
@@ -34,10 +37,10 @@ export default function SignupPage() {
 
     try {
       console.log('Inside try block - Sending POST request to /api/waitlist')
-      
+
       const requestBody = JSON.stringify(formData)
       console.log('Request body:', requestBody)
-      
+
       const response = await fetch('/api/waitlist', {
         method: 'POST',
         headers: {
@@ -48,13 +51,12 @@ export default function SignupPage() {
 
       console.log('Fetch completed. Response status:', response.status)
       console.log('Response ok?', response.ok)
-      
+
       const data = await response.json()
       console.log('Response data:', data)
 
       if (!response.ok) {
-        // Show detailed error message if available
-        const errorMessage = data.details 
+        const errorMessage = data.details
           ? `${data.error}: ${data.details}`
           : data.error || 'Failed to submit form'
         console.error('Form submission error:', errorMessage)
@@ -82,161 +84,137 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="flex min-h-screen flex-col bg-background">
       <NeptaNav variant="signup" />
-      <div className="container mx-auto px-4 py-12">
+
+      <div className="flex flex-1 flex-col justify-center px-4 py-16">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mx-auto max-w-md"
+          transition={{ duration: 0.45 }}
+          className="mx-auto w-full max-w-[520px]"
         >
           {!submitted ? (
             <>
-              <div className="mb-8">
-                <h1 className="text-4xl font-bold tracking-tight">Join the Waitlist</h1>
-                <p className="mt-2 text-muted-foreground">
-                  Be among the first to access our capital raising intelligence platform.
-                </p>
-              </div>
+              <p className="text-xs font-medium uppercase tracking-[0.14em] text-primary">Waitlist</p>
+              <h1
+                className={`${fraunces.className} mt-4 text-[clamp(40px,5vw,56px)] font-semibold tracking-[-0.02em] leading-[1.08] text-foreground`}
+              >
+                Get on the list. We will be in touch.
+              </h1>
+              <p className="mt-4 max-w-[440px] text-[17px] leading-[1.7] text-muted-foreground">
+                You will get occasional updates as we ship agents and take on new deployments.
+              </p>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle>Join the waitlist</CardTitle>
-                  <CardDescription>
-                    Fill in your details to join the waitlist
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    {error && (
-                      <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
-                        {error}
-                      </div>
-                    )}
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Full Name</Label>
-                      <Input
-                        id="name"
-                        name="name"
-                        type="text"
-                        placeholder="John Doe"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        disabled={isSubmitting}
-                      />
+              <div className="mt-10 rounded-md border border-border bg-background p-6 sm:p-8">
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  {error && (
+                    <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
+                      {error}
                     </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        placeholder="john@example.com"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        disabled={isSubmitting}
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="company">Company Name</Label>
-                      <Input
-                        id="company"
-                        name="company"
-                        type="text"
-                        placeholder="Your Company"
-                        value={formData.company}
-                        onChange={handleChange}
-                        disabled={isSubmitting}
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number</Label>
-                      <Input
-                        id="phone"
-                        name="phone"
-                        type="tel"
-                        placeholder="+1 (555) 000-0000"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        disabled={isSubmitting}
-                      />
-                    </div>
-
-                    <Button 
-                      type="submit" 
-                      className="w-full group" 
-                      size="lg"
+                  )}
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Full name</Label>
+                    <Input
+                      id="name"
+                      name="name"
+                      type="text"
+                      placeholder="John Doe"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
                       disabled={isSubmitting}
-                    >
-                      {isSubmitting ? 'Submitting...' : 'Join the waitlist'}
-                      {!isSubmitting && (
-                        <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                      )}
-                    </Button>
-                  </form>
-
-                  <div className="mt-6 space-y-3">
-                    <div className="flex items-start gap-3 text-sm text-muted-foreground">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                      <span>No credit card required</span>
-                    </div>
-                    <div className="flex items-start gap-3 text-sm text-muted-foreground">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                      <span>Early access to new features</span>
-                    </div>
-                    <div className="flex items-start gap-3 text-sm text-muted-foreground">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                      <span>Priority support</span>
-                    </div>
+                      className={inputClass}
+                    />
                   </div>
-                </CardContent>
-              </Card>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="john@example.com"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      disabled={isSubmitting}
+                      className={inputClass}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="company">Company name</Label>
+                    <Input
+                      id="company"
+                      name="company"
+                      type="text"
+                      placeholder="Your company"
+                      value={formData.company}
+                      onChange={handleChange}
+                      disabled={isSubmitting}
+                      className={inputClass}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="phone">Phone number</Label>
+                    <Input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      placeholder="+1 (555) 000-0000"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      disabled={isSubmitting}
+                      className={inputClass}
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    className="h-14 w-full rounded-md text-[17px] font-medium"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Submitting…' : 'Join the waitlist'}
+                  </Button>
+                </form>
+              </div>
             </>
           ) : (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="text-center"
-            >
-              <div className="mb-8">
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.2, type: 'spring' }}
-                  className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10"
-                >
-                  <CheckCircle className="h-10 w-10 text-primary" />
-                </motion.div>
-                <h1 className="mb-4 text-4xl font-bold tracking-tight">Thank You!</h1>
-                <p className="mx-auto max-w-md text-lg text-muted-foreground">
-                  We've received your information. We'll be in touch soon with early access to the platform.
-                </p>
-              </div>
-              <Link href="/">
-                <Button variant="outline" size="lg">
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Back to home
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+              <h1
+                className={`${fraunces.className} text-[clamp(36px,4vw,48px)] font-semibold tracking-tight text-foreground`}
+              >
+                You are on the list.
+              </h1>
+              <p className="mt-4 max-w-[440px] text-[17px] leading-[1.7] text-muted-foreground">
+                We have your details. When there is something worth sharing, we will email you.
+              </p>
+              <div className="mt-10">
+                <Button variant="outline" className="h-12 rounded-md" asChild>
+                  <Link href="/">
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Back to home
+                  </Link>
                 </Button>
-              </Link>
+              </div>
             </motion.div>
           )}
 
-          <p className="mt-6 text-center text-sm text-muted-foreground">
-            By creating an account, you agree to our{' '}
-            <Link href="#" className="underline hover:text-foreground">
-              Terms of Service
-            </Link>{' '}
-            and{' '}
-            <Link href="#" className="underline hover:text-foreground">
-              Privacy Policy
-            </Link>
-            .
-          </p>
+          {!submitted ? (
+            <p className="mt-8 text-sm text-muted-foreground">
+              By submitting, you agree to our{' '}
+              <Link href="#" className="underline decoration-border underline-offset-4 hover:text-foreground">
+                Terms of Service
+              </Link>{' '}
+              and{' '}
+              <Link href="#" className="underline decoration-border underline-offset-4 hover:text-foreground">
+                Privacy Policy
+              </Link>
+              .
+            </p>
+          ) : null}
         </motion.div>
       </div>
 
@@ -244,5 +222,3 @@ export default function SignupPage() {
     </div>
   )
 }
-
-
