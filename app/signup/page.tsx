@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { NeptaNav } from '@/components/layout/NeptaNav'
+import { NeptaFooter } from '@/components/layout/NeptaFooter'
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({
@@ -80,18 +82,14 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
+    <div className="min-h-screen">
+      <NeptaNav variant="signup" />
       <div className="container mx-auto px-4 py-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="mx-auto max-w-md"
         >
-          <Link href="/" className="mb-8 inline-flex items-center text-sm text-muted-foreground hover:text-foreground">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to home
-          </Link>
-
           {!submitted ? (
             <>
               <div className="mb-8">
@@ -241,6 +239,8 @@ export default function SignupPage() {
           </p>
         </motion.div>
       </div>
+
+      <NeptaFooter />
     </div>
   )
 }
