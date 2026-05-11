@@ -16,8 +16,8 @@ export function HeroSection() {
             transition={{ duration: 0.6 }}
             className="text-5xl font-bold tracking-tight lg:text-6xl"
           >
-            Raise Capital Faster with{' '}
-            <span className="text-primary">AI-Powered Intelligence</span>
+            Vertical AI-Agents for{' '}
+            <span className="text-primary">Real Estate Firms</span>
           </motion.h1>
           
           <motion.p

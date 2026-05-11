@@ -5,7 +5,7 @@ import '@/styles/globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'NEPTA | Raise Capital Faster',
+  title: 'Vertical AI-Agents for Real Estate Firms',
   description: 'AI-powered capital raising platform for real estate syndicators. Find the right investors, reach out at the right time, and close deals faster.',
 }
 
