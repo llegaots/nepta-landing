@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { fraunces } from '@/lib/fonts'
+import { landing } from '@/lib/landing-ui'
 
 const founders = [
   {
@@ -21,23 +21,25 @@ const founders = [
   },
 ] as const
 
+const linkClass =
+  'text-foreground underline decoration-primary/25 decoration-1 underline-offset-[5px] transition-colors hover:text-primary hover:decoration-primary/50'
+
 export function ContactSection() {
   return (
-    <section id="contact" className="border-t border-border bg-muted/20 py-20 lg:py-32">
-      <div className="container mx-auto px-4">
+    <section id="contact" className={`border-t border-border/80 bg-muted/35 ${landing.section}`}>
+      <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.45 }}
-          className="max-w-[880px]"
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className={landing.display}
         >
-          <p className="text-xs font-medium uppercase tracking-[0.14em] text-primary">Contact</p>
+          <p className={landing.eyebrow}>contact</p>
           <h2
-            className={`${fraunces.className} mt-4 text-[clamp(32px,3.6vw,56px)] font-semibold tracking-[-0.02em] leading-[1.08] text-foreground`}
+            className={`${landing.displayHeading} mt-5 text-[clamp(1.875rem,3.8vw,3.25rem)] leading-[1.08]`}
           >
-            If you run a real estate firm, invest in the space, or build for it, we are easy to
-            reach.
+            Operators, investors, builders: we read every note.
           </h2>
         </motion.div>
 
@@ -45,30 +47,25 @@ export function ContactSection() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.45, delay: 0.06 }}
-          className="mt-12 grid max-w-3xl grid-cols-1 gap-10 border-b border-border pb-12 md:grid-cols-2 md:gap-16"
+          transition={{ duration: 0.5, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-12 grid max-w-4xl grid-cols-1 gap-6 md:grid-cols-2 md:gap-8"
         >
           {founders.map((f) => (
-            <div key={f.name}>
-              <h3 className={`${fraunces.className} text-[22px] font-semibold text-foreground`}>
+            <div
+              key={f.name}
+              className="rounded-md border border-border/90 bg-background/80 p-8 shadow-[0_1px_0_rgba(15,23,42,0.03)] md:p-9"
+            >
+              <h3 className="font-display text-[1.35rem] font-semibold tracking-tight text-foreground">
                 {f.name}
               </h3>
-              <p className="mt-4 text-[17px] leading-relaxed">
-                <a
-                  href={`mailto:${f.email}`}
-                  className="text-foreground underline decoration-border underline-offset-4 transition-colors hover:text-primary"
-                >
+              <p className="mt-5 text-[17px] leading-relaxed">
+                <a href={`mailto:${f.email}`} className={linkClass}>
                   {f.email}
                 </a>
               </p>
-              <p className="mt-2 text-[17px] text-muted-foreground">{f.phone}</p>
-              <p className="mt-2 text-[17px]">
-                <a
-                  href={f.linkedinHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground underline decoration-border underline-offset-4 transition-colors hover:text-primary"
-                >
+              <p className="mt-2 text-[17px] tabular-nums text-muted-foreground">{f.phone}</p>
+              <p className="mt-3 text-[17px]">
+                <a href={f.linkedinHref} target="_blank" rel="noopener noreferrer" className={linkClass}>
                   {f.linkedinLabel}
                 </a>
               </p>
@@ -76,19 +73,21 @@ export function ContactSection() {
           ))}
         </motion.div>
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="mt-10 text-[17px] text-muted-foreground"
+          transition={{ duration: 0.45, delay: 0.1 }}
+          className="mt-12 max-w-4xl border-t border-border/80 pt-10"
         >
-          Prefer the waitlist?{' '}
-          <Link href="/signup" className="text-foreground underline decoration-border underline-offset-4 hover:text-primary">
-            Sign up here
-          </Link>
-          .
-        </motion.p>
+          <p className={`${landing.lead} text-[17px]`}>
+            Prefer the waitlist?{' '}
+            <Link href="/signup" className={linkClass}>
+              Sign up here
+            </Link>
+            .
+          </p>
+        </motion.div>
       </div>
     </section>
   )

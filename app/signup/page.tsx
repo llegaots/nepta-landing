@@ -9,10 +9,13 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { NeptaNav } from '@/components/layout/NeptaNav'
 import { NeptaFooter } from '@/components/layout/NeptaFooter'
-import { fraunces } from '@/lib/fonts'
+import { landing } from '@/lib/landing-ui'
 
 const inputClass =
-  'h-14 rounded-md border-border text-[17px] px-4 shadow-none focus-visible:ring-2 focus-visible:ring-ring'
+  'h-[3.35rem] rounded-md border-border/90 bg-background text-[17px] px-4 shadow-none transition-shadow focus-visible:border-primary/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0'
+
+const linkClass =
+  'underline decoration-primary/25 decoration-1 underline-offset-[5px] transition-colors hover:text-foreground hover:decoration-primary/50'
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({
@@ -87,34 +90,36 @@ export default function SignupPage() {
     <div className="flex min-h-screen flex-col bg-background">
       <NeptaNav variant="signup" />
 
-      <div className="flex flex-1 flex-col justify-center px-4 py-16">
+      <div className="flex flex-1 flex-col justify-center px-4 py-20">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="mx-auto w-full max-w-[520px]"
         >
           {!submitted ? (
             <>
-              <p className="text-xs font-medium uppercase tracking-[0.14em] text-primary">Waitlist</p>
+              <p className={landing.eyebrow}>waitlist</p>
               <h1
-                className={`${fraunces.className} mt-4 text-[clamp(40px,5vw,56px)] font-semibold tracking-[-0.02em] leading-[1.08] text-foreground`}
+                className={`${landing.displayHeading} mt-5 text-[clamp(2.25rem,5vw,3.25rem)] leading-[1.08]`}
               >
                 Get on the list. We will be in touch.
               </h1>
-              <p className="mt-4 max-w-[440px] text-[17px] leading-[1.7] text-muted-foreground">
-                You will get occasional updates as we ship agents and take on new deployments.
+              <p className={`${landing.lead} mt-5 max-w-[440px]`}>
+                Occasional updates as we ship agents and take on new deployments. No marketing drip.
               </p>
 
-              <div className="mt-10 rounded-md border border-border bg-background p-6 sm:p-8">
+              <div className="mt-10 rounded-md border border-border/90 bg-muted/25 p-7 shadow-[0_1px_0_rgba(15,23,42,0.03)] sm:p-9">
                 <form onSubmit={handleSubmit} className="space-y-5">
                   {error && (
-                    <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
+                    <div className="rounded-md border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive">
                       {error}
                     </div>
                   )}
                   <div className="space-y-2">
-                    <Label htmlFor="name">Full name</Label>
+                    <Label htmlFor="name" className="text-[13px] font-medium text-foreground/90">
+                      Full name
+                    </Label>
                     <Input
                       id="name"
                       name="name"
@@ -129,7 +134,9 @@ export default function SignupPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email" className="text-[13px] font-medium text-foreground/90">
+                      Email
+                    </Label>
                     <Input
                       id="email"
                       name="email"
@@ -144,7 +151,9 @@ export default function SignupPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="company">Company name</Label>
+                    <Label htmlFor="company" className="text-[13px] font-medium text-foreground/90">
+                      Company name
+                    </Label>
                     <Input
                       id="company"
                       name="company"
@@ -158,7 +167,9 @@ export default function SignupPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="phone">Phone number</Label>
+                    <Label htmlFor="phone" className="text-[13px] font-medium text-foreground/90">
+                      Phone number
+                    </Label>
                     <Input
                       id="phone"
                       name="phone"
@@ -173,7 +184,7 @@ export default function SignupPage() {
 
                   <Button
                     type="submit"
-                    className="h-14 w-full rounded-md text-[17px] font-medium"
+                    className="h-[3.35rem] w-full rounded-md text-[17px] font-medium shadow-[0_1px_0_rgba(15,23,42,0.06)]"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? 'Submitting…' : 'Join the waitlist'}
@@ -182,17 +193,19 @@ export default function SignupPage() {
               </div>
             </>
           ) : (
-            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-              <h1
-                className={`${fraunces.className} text-[clamp(36px,4vw,48px)] font-semibold tracking-tight text-foreground`}
-              >
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <h1 className={`${landing.displayHeading} text-[clamp(2rem,4vw,2.75rem)] leading-tight`}>
                 You are on the list.
               </h1>
-              <p className="mt-4 max-w-[440px] text-[17px] leading-[1.7] text-muted-foreground">
+              <p className={`${landing.lead} mt-5 max-w-[440px]`}>
                 We have your details. When there is something worth sharing, we will email you.
               </p>
               <div className="mt-10">
-                <Button variant="outline" className="h-12 rounded-md" asChild>
+                <Button variant="outline" className="h-12 rounded-md border-border/90 px-6" asChild>
                   <Link href="/">
                     <ArrowLeft className="mr-2 h-4 w-4" />
                     Back to home
@@ -203,13 +216,13 @@ export default function SignupPage() {
           )}
 
           {!submitted ? (
-            <p className="mt-8 text-sm text-muted-foreground">
+            <p className="mt-8 text-[13px] leading-relaxed text-muted-foreground">
               By submitting, you agree to our{' '}
-              <Link href="#" className="underline decoration-border underline-offset-4 hover:text-foreground">
+              <Link href="#" className={linkClass}>
                 Terms of Service
               </Link>{' '}
               and{' '}
-              <Link href="#" className="underline decoration-border underline-offset-4 hover:text-foreground">
+              <Link href="#" className={linkClass}>
                 Privacy Policy
               </Link>
               .

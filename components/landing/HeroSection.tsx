@@ -1,37 +1,42 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { fraunces } from '@/lib/fonts'
+import { landing } from '@/lib/landing-ui'
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-background py-20 lg:py-32">
+    <section className={`relative overflow-hidden ${landing.section}`}>
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-28 top-10 h-96 w-96 rounded-full bg-primary/10 blur-3xl"
+        className="pointer-events-none absolute -right-32 top-0 h-[min(520px,80vw)] w-[min(520px,80vw)] rounded-full bg-[radial-gradient(circle_at_center,hsl(var(--primary)/0.09)_0%,transparent_68%)] blur-2xl"
       />
-      <div className="container mx-auto px-4">
-        <div className="max-w-[880px]">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent"
+      />
+
+      <div className="container relative mx-auto">
+        <div className={`${landing.display}`}>
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col"
           >
-            <motion.div
+            <motion.p
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.03 }}
-              className="text-xs font-medium uppercase tracking-[0.14em] text-primary"
+              transition={{ duration: 0.45, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
+              className={landing.eyebrow}
             >
               vertical agents for real estate firms
-            </motion.div>
+            </motion.p>
 
             <motion.h1
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.09 }}
-              className={`${fraunces.className} mt-5 text-[clamp(44px,5vw,84px)] font-semibold tracking-[-0.02em] leading-[1.05]`}
+              transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+              className={`${landing.displayHeading} mt-6 text-[clamp(2.75rem,6vw,5.25rem)] leading-[1.04]`}
             >
               NEPTA builds agents that run real estate operations.
             </motion.h1>
@@ -39,39 +44,39 @@ export function HeroSection() {
             <motion.p
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-              className="mt-6 max-w-[560px] text-[17px] leading-[1.7] text-muted-foreground"
+              transition={{ duration: 0.5, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
+              className={`${landing.lead} ${landing.prose} mt-8`}
             >
-              NEPTA builds capital raising agents, leasing operation agents, property management
-              agents, and a reporting agent for real estate operators. One agent at a time, until the
-              operational layer runs itself.
+              Capital raising, leasing operations, property management, and reporting. Each agent
+              maps to workflows your team already runs. We deploy one surface at a time, then expand
+              as the operational layer matures.
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.22 }}
-              className="mt-10 flex max-w-md items-stretch gap-8"
+              transition={{ duration: 0.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-14 max-w-md border-t border-border/80 pt-10"
             >
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2">
-                  <span className={`${fraunces.className} text-[22px] font-semibold text-foreground`}>
+              <div className="flex items-stretch gap-10">
+                <div className="min-w-0 flex-1">
+                  <p className="font-display text-2xl font-semibold tabular-nums tracking-tight text-foreground sm:text-[1.65rem]">
                     $1.45M+
-                  </span>
+                  </p>
+                  <p className="mt-2 text-[13px] font-medium leading-snug text-muted-foreground">
+                    Capital raised
+                  </p>
                 </div>
-                <div className="mt-1 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-                  capital raised
-                </div>
-              </div>
 
-              <div className="w-px shrink-0 self-stretch bg-border" aria-hidden />
+                <div className="w-px shrink-0 bg-gradient-to-b from-transparent via-border to-transparent" aria-hidden />
 
-              <div className="min-w-0 flex-1">
-                <span className={`${fraunces.className} text-[22px] font-semibold text-foreground`}>
-                  20+
-                </span>
-                <div className="mt-1 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-                  clients served
+                <div className="min-w-0 flex-1">
+                  <p className="font-display text-2xl font-semibold tabular-nums tracking-tight text-foreground sm:text-[1.65rem]">
+                    20+
+                  </p>
+                  <p className="mt-2 text-[13px] font-medium leading-snug text-muted-foreground">
+                    Clients served
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -81,4 +86,3 @@ export function HeroSection() {
     </section>
   )
 }
-

@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { fraunces } from '@/lib/fonts'
+import { landing } from '@/lib/landing-ui'
 
 type AgentStatus = 'live' | 'roadmap'
 
@@ -16,14 +16,14 @@ const agents: Array<{
     index: '01',
     status: 'live',
     name: 'Capital raising agents',
-    summary: 'Investor sourcing, outreach, and pipeline through close.',
-    bullets: ['Built for syndicators and funds.', 'Runs alongside your raise process.'],
+    summary: 'Sourcing, outreach, and pipeline through close.',
+    bullets: ['Built for syndicators and funds.', 'Runs alongside live raises.'],
   },
   {
     index: '02',
     status: 'live',
     name: 'Leasing operation agents',
-    summary: 'Lead routing, paperwork, reminders, and handoffs your team repeats every season.',
+    summary: 'Leads, paperwork, reminders, and the handoffs your team repeats every season.',
     bullets: ['Fewer dropped leads.', 'Less time in admin loops.'],
   },
   {
@@ -31,7 +31,7 @@ const agents: Array<{
     status: 'live',
     name: 'Property management agents',
     summary: 'Tenant requests, maintenance coordination, and day-to-day comms.',
-    bullets: ['Designed to sit on top of existing tools.', 'Scoped to how your PM team already works.'],
+    bullets: ['Sits on top of existing tools.', 'Scoped to how your PM team works.'],
   },
   {
     index: '04',
@@ -45,13 +45,13 @@ const agents: Array<{
 function StatusPill({ status }: { status: AgentStatus }) {
   if (status === 'live') {
     return (
-      <span className="inline-flex rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+      <span className="rounded-sm border border-primary/15 bg-primary/[0.07] px-2.5 py-1 text-[11px] font-medium text-primary">
         Live
       </span>
     )
   }
   return (
-    <span className="inline-flex rounded-md bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
+    <span className="rounded-sm border border-border bg-muted/80 px-2.5 py-1 text-[11px] font-medium text-muted-foreground">
       Roadmap
     </span>
   )
@@ -59,24 +59,24 @@ function StatusPill({ status }: { status: AgentStatus }) {
 
 export function WhatWeBuildSection() {
   return (
-    <section className="border-t border-border bg-muted/20 py-20 lg:py-32">
-      <div className="container mx-auto px-4">
+    <section className={`border-t border-border/80 bg-muted/35 ${landing.section}`}>
+      <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.45 }}
-          className="max-w-[880px]"
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className={landing.display}
         >
-          <p className="text-xs font-medium uppercase tracking-[0.14em] text-primary">What we build</p>
+          <p className={landing.eyebrow}>what we build</p>
           <h2
-            className={`${fraunces.className} mt-4 text-[clamp(32px,3.6vw,56px)] font-semibold tracking-[-0.02em] leading-[1.08] text-foreground`}
+            className={`${landing.displayHeading} mt-5 text-[clamp(1.875rem,3.8vw,3.25rem)] leading-[1.08]`}
           >
             Agents in production, not slideware.
           </h2>
-          <p className="mt-4 max-w-[640px] text-[17px] leading-[1.7] text-muted-foreground">
-            NEPTA ships vertical agents for real estate firms: capital raising, leasing operations,
-            property management, and reporting. Each one is scoped to real workflows.
+          <p className={`${landing.lead} ${landing.prose} mt-6`}>
+            Four agent lines, each tied to real estate operations. We ship narrow surfaces first,
+            then widen scope as trust and data quality allow.
           </p>
         </motion.div>
 
@@ -84,43 +84,50 @@ export function WhatWeBuildSection() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.45, delay: 0.06 }}
-          className="mt-14 grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-border bg-border md:grid-cols-2"
+          transition={{ duration: 0.5, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-16 rounded-md border border-border/90 bg-border/55 p-px shadow-[0_1px_0_rgba(15,23,42,0.04)]"
         >
-          {agents.map((agent) => (
-            <div key={agent.index} className="bg-background p-8 md:p-10">
-              <div className="flex items-start justify-between gap-4">
-                <span className="text-xs tabular-nums text-muted-foreground">{agent.index}</span>
-                <StatusPill status={agent.status} />
-              </div>
-              <h3
-                className={`${fraunces.className} mt-4 text-[22px] font-semibold leading-snug tracking-tight text-foreground md:text-[24px]`}
+          <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[calc(0.375rem-1px)] bg-border/55 md:grid-cols-2">
+            {agents.map((agent) => (
+              <div
+                key={agent.index}
+                className="flex min-h-[260px] flex-col bg-background p-8 md:min-h-[280px] md:p-10 lg:p-11"
               >
-                {agent.name}
-              </h3>
-              <p className="mt-3 text-[17px] leading-[1.65] text-muted-foreground">{agent.summary}</p>
-              <div className="my-6 h-px w-full bg-border" />
-              <ul className="space-y-2.5 text-[15px] leading-relaxed text-foreground">
-                {agent.bullets.map((line) => (
-                  <li key={line} className="flex gap-2.5">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary" aria-hidden />
-                    <span>{line}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+                <div className="flex items-start justify-between gap-4">
+                  <span className="font-mono text-[11px] tabular-nums tracking-[0.12em] text-muted-foreground/90">
+                    {agent.index}
+                  </span>
+                  <StatusPill status={agent.status} />
+                </div>
+                <h3 className="font-display mt-5 text-[1.375rem] font-semibold leading-snug tracking-tight text-foreground md:text-[1.5rem]">
+                  {agent.name}
+                </h3>
+                <p className="mt-3 text-[17px] leading-[1.65] text-muted-foreground">{agent.summary}</p>
+                <div className="my-7 h-px w-full bg-gradient-to-r from-border via-border/60 to-transparent" />
+                <ul className="mt-auto space-y-3 text-[15px] leading-relaxed text-foreground/95">
+                  {agent.bullets.map((line) => (
+                    <li key={line} className="flex gap-3">
+                      <span
+                        className="mt-[0.55rem] h-1 w-1 shrink-0 rounded-full bg-primary/80"
+                        aria-hidden
+                      />
+                      <span>{line}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </motion.div>
 
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="mt-8 max-w-[640px] text-sm text-muted-foreground"
+          transition={{ duration: 0.45, delay: 0.08 }}
+          className={`${landing.prose} mt-10 text-[15px] leading-relaxed text-muted-foreground`}
         >
-          More agents are in design. If you run a workflow we have not listed, we still want to hear
-          from you.
+          More agents are in design. If your workflow is not listed, we still want to hear from you.
         </motion.p>
       </div>
     </section>
