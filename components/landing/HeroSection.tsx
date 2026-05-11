@@ -55,9 +55,9 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.22 }}
-              className="mt-10 flex items-stretch gap-8"
+              className="mt-10 flex max-w-md items-stretch gap-8"
             >
-              <div className="flex-1">
+              <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
                   <span className={`${fraunces.className} text-[22px] font-semibold text-foreground`}>
                     $1.45M+
@@ -68,26 +68,14 @@ export function HeroSection() {
                 </div>
               </div>
 
-              <div className="hidden w-px bg-border" />
+              <div className="w-px shrink-0 self-stretch bg-border" aria-hidden />
 
-              <div className="flex-1">
+              <div className="min-w-0 flex-1">
                 <span className={`${fraunces.className} text-[22px] font-semibold text-foreground`}>
                   20+
                 </span>
                 <div className="mt-1 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
                   clients served
-                </div>
-              </div>
-
-              <div className="hidden w-px bg-border" />
-
-              {/* Third stat kept aligned with the original "proof row" intent. */}
-              <div className="flex-1">
-                <span className={`${fraunces.className} text-[22px] font-semibold text-foreground`}>
-                  $100K+
-                </span>
-                <div className="mt-1 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-                  bootstrapped revenue
                 </div>
               </div>
             </motion.div>
