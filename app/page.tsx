@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { HeroSection } from '@/components/landing/HeroSection'
 import { WhatWeBuildSection } from '@/components/landing/WhatWeBuildSection'
-import { TractionSection } from '@/components/landing/TractionSection'
 import { ContactSection } from '@/components/landing/ContactSection'
 import { NeptaNav } from '@/components/layout/NeptaNav'
 import { NeptaFooter } from '@/components/layout/NeptaFooter'
@@ -19,7 +18,6 @@ export default function LandingPage() {
       <main>
         <HeroSection />
         <WhatWeBuildSection />
-        <TractionSection />
         <ContactSection />
       </main>
 
